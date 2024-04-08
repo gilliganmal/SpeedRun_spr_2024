@@ -15,3 +15,4 @@
 // OPCODES
 //
 #define OPCODE_EXEC 1
+#define OPCODE_WHOAMI 2

@@ -9,7 +9,7 @@ CFLAGS += "-lwinhttp"
 CFLAGS += "-DPB_ENABLE_MALLOC"
 
 # C source code files that are required
-CSRC  = implant2.c                   # The main program
+CSRC  = implant.c                   # The main program
 CSRC += implant.pb.c                # The compiled protocol definition
 CSRC += $(NANOPB_DIR)/pb_encode.c  # The nanopb encoder
 CSRC += $(NANOPB_DIR)/pb_decode.c  # The nanopb decoder

